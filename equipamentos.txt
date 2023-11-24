@@ -1,6 +1,6 @@
 Equipamentos usados:
 Rede 01
-1 Roteador 2811 + módulo FastEthernet
+1 Roteador 2811 + Módulo FastEthernet NM-1FE-TX
 1 Switch 2950-24
 3 Servidores
 2 PCs
@@ -10,7 +10,7 @@ Rede 01
 1 TabletPC-PT
 
 Rede 02
-1 Roteador 2811 + módulo FastEthernet
+1 Roteador 2811 + Módulo FastEthernet NM-1FE-TX
 1 Switch 2950-24
 2 PCs
 2 IP Phones 7960
@@ -19,7 +19,7 @@ Rede 02
 1 TabletPC-PT
 
 Rede 03
-1 Roteador 2811 + módulo FastEthernet
+1 Roteador 2811 + Módulo FastEthernet NM-1FE-TX
 1 Switch 2950-24
 2 PCs
 2 IP Phones 7960
@@ -28,7 +28,7 @@ Rede 03
 1 TabletPC-PT
 
 Total:
-3 Roteadores 2811 + módulo FastEthernet
+3 Roteadores 2811 + Módulo FastEthernet NM-1FE-TX
 3 Switchs 2950-24
 3 Servidores
 6 PCs
