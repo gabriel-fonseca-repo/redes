@@ -21,3 +21,334 @@ Projeto de rede feito no Cisco Package Tracer, para a disciplina Projeto de Rede
 |  3   |       32       | 192.168.32.0 | 255.255.255.0 | 192.168.32.1 | 192.168.31.2 | 192.168.32.255 |               -               |
 
 ## Equipamentos utilizados
+
+-   Rede 01:
+    -   1 x Roteador 2811 + Módulo FastEthernet NM-1FE-TX
+    -   1 x Switch 2950-24
+    -   3 x Servidores
+    -   2 x PCs
+    -   2 x IP Phones 7960
+    -   1 x AccessPoint-PT
+    -   1 x SmartPhone-PT
+    -   1 x TabletPC-PT
+
+---
+
+-   Rede 02
+    -   1 x Roteador 2811 + Módulo FastEthernet NM-1FE-TX
+    -   1 x Switch 2950-24
+    -   2 x PCs
+    -   2 x IP Phones 7960
+    -   1 x AccessPoint-PT
+    -   1 x SmartPhone-PT
+    -   1 x TabletPC-PT
+
+---
+
+-   Rede 03
+    -   1 x Roteador 2811 + Módulo FastEthernet NM-1FE-TX
+    -   1 x Switch 2950-24
+    -   2 x PCs
+    -   2 x IP Phones 7960
+    -   1 x AccessPoint-PT
+    -   1 x SmartPhone-PT
+    -   1 x TabletPC-PT
+
+---
+
+-   Total:
+    -   3 x Roteadores 2811 + Módulo FastEthernet NM-1FE-TX
+    -   3 x Switch's 2950-24
+    -   3 x Servidores
+    -   6 x PCs
+    -   6 x IP Phone 7960
+    -   3 x AccessPoint-PT
+    -   3 x SmartPhone-PT
+    -   3 x TabletPC-PT
+
+---
+
+## Comandos para configuração das redes
+
+A seguir serão apresentados os comandos necessários para configurar o hardware utilizado em cada uma das três redes.
+
+### Rede 1
+
+-   Equipamento: Switch
+
+```sh
+Switch> en
+Switch# conf t
+    Enter configuration commands, one per line. End with CNTL/Z.
+Switch(config)# vlan 11
+Switch(config-vlan)# name dados
+Switch(config-vlan)# exit
+Switch(config)# vlan 12
+Switch(config-vlan)# name voice
+Switch(config-vlan)# exit
+Switch(config)# int fa 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# int range fa 0/2-24
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 11
+Switch(config-if-range)# exit
+Switch(config)# int range fa 0/23-24
+Switch(config-if-range)# switchport voice vlan 12
+Switch(config-if-range)# exit
+Switch(config)# exit
+Switch#
+```
+
+-   Equipamento: Router (Interfaces)
+
+```sh
+Router> en
+Router# conf t
+    Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)# int fa 0/0
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+Router(config-if)# exit
+Router(config)# int fa 0/1
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+Router(config-if)# ip address 10.0.0.1 255.0.0.0
+Router(config-if)# exit
+Router(config)# int fa 1/0
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet1/0, changed state to up
+Router(config-if)# ip address 11.0.0.1 255.0.0.0
+Router(config-if)# exit
+Router(config)# int fastEthernet 0/0.11
+    %LINK-5-CHANGED: Interface FastEthernet0/0.11, changed state to up
+Router(config-subif)# ip add
+Router(config-subif)# encapsulation dot1Q 11
+Router(config-subif)# ip address 192.168.11.1 255.255.255.0
+Router(config-subif)# exit
+Router(config)# int fastEthernet 0/0.12
+    %LINK-5-CHANGED: Interface FastEthernet0/0.12, changed state to up
+Router(config-subif)# encapsulation dot1Q 12
+Router(config-subif)# ip address 192.168.12.1 255.255.255.0
+Router(config-subif)# exit
+Router(config)# end
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Telefonia)
+
+```sh
+Router# conf t
+    Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)# int fastEthernet 0/0.12
+Router(config-subif)# ip helper-address 192.168.11.2
+Router(config-subif)# exit
+Router(config)# telephony-service
+Router(config-telephony)# max-dn 10
+Router(config-telephony)# max-ephones 10
+Router(config-telephony)# ip source-address 192.168.12.1 port 2000
+Router(config-telephony)# auto assign 1 to 10
+Router(config-telephony)# exit
+Router(config)# ephone-dn 1
+Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 1.1, changed state to up
+Router(config-ephone-dn)# number 100
+Router(config-ephone-dn)# exit
+Router(config)# ephone-dn 2
+Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 2.1, changed state to up
+Router(config-ephone-dn)# number 101
+    %IPPHONE-6-REGISTER: ephone-1 IP:192.168.12.6 Socket:2 DeviceType:Phone has registered.
+    %IPPHONE-6-REGISTER: ephone-2 IP:192.168.12.8 Socket:2 DeviceType:Phone has registered.
+Router(config-ephone-dn)# exit
+Router(config)# end
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Rotas)
+
+```sh
+Router> en
+Router# config t
+    Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)# router rip
+Router(config-router)# network 192.168.11.0
+Router(config-router)# network 192.168.12.0
+Router(config-router)# network 10.0.0.0
+Router(config-router)# network 11.0.0.0
+Router(config-router)# end
+Router#
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Rotas VOIP)
+
+```sh
+Router# config t
+    Enter configuration commands, one per line. End with CNTL/Z.
+Router(config)# dial-peer voice 1 voip
+Router(config-dial-peer)# destination-pattern 300
+Router(config-dial-peer)# session target ipv4:11.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 2 voip
+Router(config-dial-peer)# destination-pattern 301
+Router(config-dial-peer)# session target ipv4:11.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 3 voip
+Router(config-dial-peer)# destination-pattern 200
+Router(config-dial-peer)# session target ipv4:10.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 4 voip
+Router(config-dial-peer)# destination-pattern 201
+Router(config-dial-peer)# session target ipv4:10.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# exit
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+### Rede 2
+
+-   Equipamento: Switch
+
+```sh
+Switch> en
+Switch# conf t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)# vlan 21
+Switch(config-vlan)# name dados
+Switch(config-vlan)# exit
+Switch(config)# vlan 22
+Switch(config-vlan)# name voice
+Switch(config-vlan)# exit
+Switch(config)# int fa 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# int range fa 0/2-24
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 21
+Switch(config-if-range)# exit
+Switch(config)# int range fa 0/23-24
+Switch(config-if-range)# switchport voice vlan 22
+Switch(config-if-range)# exit
+Switch(config)# exit
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Interfaces)
+
+```sh
+Router> en
+Router# conf t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)# int fa 0/0
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+Router(config-if)# exit
+Router(config)# int fa 0/1
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+Router(config-if)# ip address 10.0.0.2 255.0.0.0
+Router(config-if)# exit
+Router(config)# int fa 1/0
+Router(config-if)# no shutdown
+    %LINK-5-CHANGED: Interface FastEthernet1/0, changed state to up
+Router(config-if)# ip address 12.0.0.1 255.0.0.0
+Router(config-if)# exit
+Router(config)# int fastEthernet 0/0.21
+    %LINK-5-CHANGED: Interface FastEthernet0/0.21, changed state to up
+Router(config-subif)# ip add
+Router(config-subif)# encapsulation dot1Q 21
+Router(config-subif)# ip address 192.168.21.1 255.255.255.0
+Router(config-subif)# ip helper-address 192.168.11.2
+Router(config-subif)# exit
+Router(config)# int fastEthernet 0/0.22
+    %LINK-5-CHANGED: Interface FastEthernet0/0.22, changed state to up
+Router(config-subif)# encapsulation dot1Q 22
+Router(config-subif)# ip address 192.168.22.1 255.255.255.0
+Router(config-subif)# ip helper-address 192.168.11.2
+Router(config-subif)# exit
+Router(config)# exit
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Telefonia)
+
+```sh
+Router> en
+Router# conf t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)# telephony-service
+Router(config-telephony)# max-dn 10
+Router(config-telephony)# max-ephones 10
+Router(config-telephony)# ip source-address 192.168.22.1 port 2000
+Router(config-telephony)# auto assign 1 to 10
+Router(config-telephony)# exit
+Router(config)# ephone-dn 1
+Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 1.1, changed state to up
+Router(config-ephone-dn)# number 200
+Router(config-ephone-dn)# exit
+Router(config)# ephone-dn 2
+Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 2.1, changed state to up
+Router(config-ephone-dn)# number 201
+    %IPPHONE-6-REGISTER: ephone-1 IP:192.168.22.6 Socket:2 DeviceType:Phone has registered.
+    %IPPHONE-6-REGISTER: ephone-2 IP:192.168.22.8 Socket:2 DeviceType:Phone has registered.
+Router(config-ephone-dn)# exit
+Router(config)# end
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Rotas)
+
+```sh
+Router> en
+Router# config t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)# router rip
+Router(config-router)# network 192.168.21.0
+Router(config-router)# network 192.168.22.0
+Router(config-router)# network 10.0.0.0
+Router(config-router)# network 12.0.0.0
+Router(config-router)# end
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
+
+-   Equipamento: Router (Rotas VOIP)
+
+```sh
+Router# config t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)# dial-peer voice 1 voip
+Router(config-dial-peer)# destination-pattern 300
+Router(config-dial-peer)# session target ipv4:12.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 2 voip
+Router(config-dial-peer)# destination-pattern 301
+Router(config-dial-peer)# session target ipv4:12.0.0.2
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 3 voip
+Router(config-dial-peer)# destination-pattern 100
+Router(config-dial-peer)# session target ipv4:10.0.0.1
+Router(config-dial-peer)# exit
+Router(config)# dial-peer voice 4 voip
+Router(config-dial-peer)# destination-pattern 101
+Router(config-dial-peer)# session target ipv4:10.0.0.1
+Router(config-dial-peer)# exit
+Router(config)# exit
+    %SYS-5-CONFIG_I: Configured from console by console
+    Building configuration...
+    [OK]
+```
