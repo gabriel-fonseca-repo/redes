@@ -426,11 +426,11 @@ Router(config-telephony)# ip source-address 192.168.32.1 port 2000
 Router(config-telephony)# auto assign 1 to 10
 Router(config-telephony)# exit
 Router(config)# ephone-dn 1
-Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 1.1, changed state to up
+    > %LINK-3-UPDOWN: Interface ephone_dsp DN 1.1, changed state to up
 Router(config-ephone-dn)# number 300
 Router(config-ephone-dn)# exit
 Router(config)# ephone-dn 2
-Router(config-ephone-dn)# %LINK-3-UPDOWN: Interface ephone_dsp DN 2.1, changed state to up
+    > %LINK-3-UPDOWN: Interface ephone_dsp DN 2.1, changed state to up
 Router(config-ephone-dn)# number 301
 Router(config-ephone-dn)# exit
 Router(config)# exit
@@ -450,8 +450,6 @@ Router(dhcp-config)# default-router 192.168.32.1
 Router(dhcp-config)# option 150 ip 192.168.32.1
 Router(dhcp-config)# exit
 Router(config)# exit
-Router(config)# exit
-Router#
     > %SYS-5-CONFIG_I: Configured from console by console
     > Building configuration...
     > [OK]
