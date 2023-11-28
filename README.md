@@ -1,6 +1,18 @@
 # Projeto de Redes Convergentes
 
-Projeto de rede feito no Cisco Package Tracer, para a disciplina Projeto de Redes Convergentes do 6º semestre do curso de Ciência da Computação da UNIFOR.
+-   Alunos:
+    -   Gabriel Fonseca Feitosa - 2111066
+    -   Pedro Lucas Ribeiro - 2111131
+
+## Introdução
+
+![Screenshot da rede no Cisco Package Tracer](rede.png)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Projeto de rede feito no Cisco Package Tracer, para a disciplina Projeto de Redes Convergentes do 6º semestre do curso de Ciência da Computação da UNIFOR.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O projeto de rede utiliza-se de um amalgamo de teorias que foram aprendidas no decorrer da disciplina, para atingir o objetivo de configurar uma rede que satisfaça as especificações realizadas pelo professor, com fins de avaliação e aprendizado.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dentre as tecnologias utilizadas, temos os principais protocolos de troca de dados em rede, como UDP, HTTP e o pai de todos os supracitados, o TCP/IP. Utilizaremos também conceitos de endereçamento como os IPs definidos estaticamente e dinamicamente através do DHCP, servidores DNS internos e externos às redes para resolução de nomes de domínio, LANs virtuais para isolamento e segmentação das redes em seus próprios ambientes e, finalmente, o protocolo RIP para roteamento das requisições.
 
 ## Dados de configuração das redes
 
@@ -11,6 +23,10 @@ Projeto de rede feito no Cisco Package Tracer, para a disciplina Projeto de Rede
 |  1   |       11       | 192.168.11.0 | 255.255.255.0 | 192.168.11.1 | 192.168.11.255 | 192.168.11.2 (Estático) |      -       | 192.168.11.5 - 192.168.11.254 | 192.168.11.3 (Estático) | 192.168.11.4 (Estático) |
 |  2   |       21       | 192.168.21.0 | 255.255.255.0 | 192.168.21.1 | 192.168.21.255 | 192.168.11.2 (Rede 01)  |      -       | 192.168.21.5 - 192.168.21.254 |            -            |            -            |
 |  3   |       31       | 192.168.31.0 | 255.255.255.0 | 192.168.31.1 | 192.168.31.255 |            -            | 192.168.31.1 |               -               |            -            |            -            |
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Com fins de organização e facilidade de leitura e interpretação, escolhemos as interfaces 11, 21 e 31 para as redes 01, 02 e 03 respectivamente, que é refletido em seus valores de host, que por consequência também reflete em todos os endereços restantes, como o gateway, broadcast, servidor de DHCP para o caso da rede 03 que é interno, e os servidores DNS e HTTP aonde se aplica (Apenas a rede 01 possui ditos servidores.).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tabela acima refere-se aos valores e configuração do serviço de transmissão de dados especificamente, utilizando a interface do tipo FastEthernet. Pode-se notar que na rede 01 há 3 endereços IP estáticos, que são referentes ao servidor DHCP, DNS e HTTP. O servidor DHCP tem a necessidade de ser estático por ser utilizado como servidor DHCP também na rede 02, como nas especificações da rede descritas pelo professor. Os servidores DNS e HTTP necessitam de ser estáticos pois também foi especificado que todos os hosts devem ser capazes de acessar o site, que reside no servidor HTTP e terá seu endereço cadastrado no DNS com o nome `server02`. Os IPs estáticos dos servidores HTTP e DNS tornam o site acessível, através do nome, para todos os hosts da rede completa, inclusive os dispositivos fora da rede 01, onde o servidor HTTP reside.
 
 ### Tabela VLAN de VOIP
 
@@ -65,8 +81,6 @@ Projeto de rede feito no Cisco Package Tracer, para a disciplina Projeto de Rede
     -   3 x AccessPoint-PT
     -   3 x SmartPhone-PT
     -   3 x TabletPC-PT
-
----
 
 ## Comandos para configuração das redes
 
