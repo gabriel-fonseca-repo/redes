@@ -36,6 +36,10 @@
 |  2   |       22       | 192.168.22.0 | 255.255.255.0 | 192.168.22.1 | 192.168.11.2 (Rede 01) | 192.168.22.255 | 192.168.22.5 - 192.168.22.254 |
 |  3   |       32       | 192.168.32.0 | 255.255.255.0 | 192.168.32.1 | 192.168.31.1 (Interno) | 192.168.32.255 |               -               |
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tabela acima estabelece os dados da configuração da VLAN de voz das 3 redes que foram especificadas. Continuando com o padrão estabelecido nas VLANs de dados, pode-se notar que as interfaces configuradas para as VLANs de voz são 12, 22 e 32 para as redes 01, 02 e 03 respectivamente, onde apenas a coluna de DHCP mostra um comportamento diferente, onde a rede 02, como dito previamente, utiliza o servidor DHCP da rede 01, e a rede 03 possui um servidor de DHCP interno. Os dispositivos de voz irão se comunicar através do protocolo SIP.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As duas VLANs (dados e voz) de cada rede, necessita de que a porta 1 do switch da sua rede esteja configurada no modo `TRUNK`, para que seja permitido a passagem de vários tipos de dados e comunicação entre as VLANs das redes vizinhas.
+
 ## Equipamentos utilizados
 
 -   Rede 01:
