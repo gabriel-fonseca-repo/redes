@@ -169,6 +169,8 @@ Router(config)# end
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O comando `no shutdown`, serve para que a porta seja habilitada no roteador, para que ela seja utilizável para comunicação, pois caso contrário ela não ficaria no estado "UP". O comando `ip address XXX.XXX.XXX.XXX XXX.XXX.XXX.XXX` serve para "settar" o IP juntamente com a máscara. O comando `int fastEthernet x/x.yy` serve para criar a sub-interface onde `yy` é o valor identificador da sub-interface, que usaremos para configurar as VLANs. O comando `encapsulation dot1Q yy` serve para atribuir a VLAN à sub-interface `yy`.
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As redes `10.0.0.1` e `11.0.0.1` na rede 01 são usadas pra comunicar com as outras redes no roteador da rede 01, na interface `0/1` tem o `10.0.0.1`, e o roteador da rede 02, a interface `0/1` possui o `10.0.0.2`, eles tem que estar na mesma rede para que possam se comunicar. A interface `1/0` da rede 01, está na `11.0.0.1` e a interface `0/1` da rede 03 está na `11.0.0.2`, ambos na mesma rede. E a interface `1/0` da rede 02, está na `12.0.0.1`, e a interface `1/0` da rede 03 está na `12.0.0.2`, na mesma rede também.
+
 -   Equipamento: Router (Telefonia)
 
 ```sh
