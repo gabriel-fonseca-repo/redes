@@ -36,7 +36,7 @@
 |  2   |       22       | 192.168.22.0 | 255.255.255.0 | 192.168.22.1 | 192.168.11.2 (Rede 01) | 192.168.22.255 | 192.168.22.5 - 192.168.22.254 |
 |  3   |       32       | 192.168.32.0 | 255.255.255.0 | 192.168.32.1 | 192.168.31.1 (Interno) | 192.168.32.255 |               -               |
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tabela acima estabelece os dados da configuração da VLAN de voz das 3 redes que foram especificadas. Continuando com o padrão estabelecido nas VLANs de dados, pode-se notar que as interfaces configuradas para as VLANs de voz são 12, 22 e 32 para as redes 01, 02 e 03 respectivamente, onde apenas a coluna de DHCP mostra um comportamento diferente, onde a rede 02, como dito previamente, utiliza o servidor DHCP da rede 01, e a rede 03 possui um servidor de DHCP interno. Os dispositivos de voz irão se comunicar através do protocolo SIP.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tabela acima estabelece os dados da configuração da VLAN de voz das 3 redes que foram especificadas. Continuando com o padrão estabelecido nas VLANs de dados, pode-se notar que as interfaces configuradas para as VLANs de voz são 12, 22 e 32 para as redes 01, 02 e 03 respectivamente, onde apenas a coluna de DHCP mostra um comportamento diferente, onde a rede 02, como dito previamente, utiliza o servidor DHCP da rede 01, e a rede 03 possui um servidor de DHCP que é o próprio roteador. Os dispositivos de voz irão se comunicar através do protocolo SIP.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As duas VLANs (dados e voz) de cada rede, necessita de que a porta 1 do switch da sua rede esteja configurada no modo `TRUNK`, para que seja permitido a passagem de vários tipos de dados e comunicação entre as VLANs das redes vizinhas.
 
@@ -77,6 +77,7 @@
 ---
 
 -   Total:
+
     -   3 x Roteadores 2811 + Módulo FastEthernet NM-1FE-TX
     -   3 x Switch's 2950-24
     -   3 x Servidores
@@ -86,9 +87,15 @@
     -   3 x SmartPhone-PT
     -   3 x TabletPC-PT
 
+---
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O Roteador 2811 foi escolhido pois é o único que tem suporte a telefonia dos modelos disponíveis no Cisco Package Tracer. O módulo extra NM-1FE-TX foi necessário pois o modelo de roteador 2811 só possui duas entradas ethernet por padrão, e uma extra foi adicionada para que ele pudesse se comunicar internamente e com as outras duas redes. O switch escolhido (2950-14) foi escolhido puramente por razões de consistência com as atividades do professor, pois foi o mesmo modelo que ele utilizou, mas acreditamos que qualquer switch seria cabível, pois todos são switchs "inteligentes", capazes de gerenciar VLANs. Os 3 servidores foram os de DHCP, HTTP e DNS. Foram feitos separadamente para um melhor entendimento do trabalho, porém, seria possível prestar todos os 3 serviços em apenas um servidor. Um total de 18 dispositivos endpoint para testes das rotas e serviços configurados. 3 AccessPoints foram utilizados para configurar o wi-fi para dispositivos wireless.
+
 ## Comandos para configuração das redes
 
-A seguir serão apresentados os comandos necessários para configurar o hardware utilizado em cada uma das três redes.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A seguir serão apresentados os comandos necessários para configurar o hardware utilizado em cada uma das três redes.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A montagem da rede como um todo envolve muita repetição de comandos e configurações iguais que apenas mudam os valores utilizados. Por essa razão, será explicado e desenvolvido apenas os comandos para os equipamentos Switch, Router (Interfaces), Router (Telefonia), Router (Rotas), Router (Rotas VOIP) e o Router (Rotas) da rede 3.
 
 ### Rede 1
 
@@ -116,6 +123,10 @@ Switch(config-if-range)# switchport voice vlan 12
 Switch(config-if-range)# exit
 Switch(config)# exit
 ```
+
+Os valores 11 e 12 escolhidos para a VLAN são iguais as interfaces nos valores de host apresentados inicialmente neste documento, apenas para facilidade de leitura e compreensão.
+
+O comando `en` de enable trata-se do comando de enable, para entrar no root do roteador. `conf t` ou `configure terminal` para entrar no modo de configuração do switch ou roteador. O comando `vlan xx` serve para criar uma VLAN e entrar na configuração da mesma, onde `xx` é qualquer número, de 1 a 4096, que servirá de interface para a VLAN.
 
 -   Equipamento: Router (Interfaces)
 
