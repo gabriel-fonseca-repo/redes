@@ -124,9 +124,9 @@ Switch(config-if-range)# exit
 Switch(config)# exit
 ```
 
-Os valores 11 e 12 escolhidos para a VLAN são iguais as interfaces nos valores de host apresentados inicialmente neste documento, apenas para facilidade de leitura e compreensão.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os valores 11 e 12 escolhidos para a VLAN são iguais as interfaces nos valores de host apresentados inicialmente neste documento, apenas para facilidade de leitura e compreensão.
 
-O comando `en` de enable trata-se do comando de enable, para entrar no root do roteador. `conf t` ou `configure terminal` para entrar no modo de configuração do switch ou roteador. O comando `vlan xx` serve para criar uma VLAN e entrar na configuração da mesma, onde `xx` é qualquer número, de 1 a 4096, que servirá de interface para a VLAN. O comando `name xxxx` serve apenas para nomear a VLAN, onde `xxxx` é o nome a ser dado para a VLAN. O comando `int fa x/x` ou `interface fastEthernet x/x` serve para acessar uma porta específica do switch, podendo-se também utilizar com um `range` (intervalo) de portas, para aplicar a mesma configuração à várias portas simultaneamente, como é feito no comando logo abaixo. O comando `switchport mode` serve para alterar o tipo de porta podendo ser os modos `TRUNK` ou `ACCESS`, sendo o `TRUNK` a porta que vai se comunicar com o roteador, pois ela necessita passar todas as VLANs. O `ACCESS` então seria acesso aos endpoints e VoIPs. Os comandos `switchport access vlan xx` e `switchport voice vlan xx` servem para atribuir os modos das VLANs criadas anteriormente, utilizando seu número como identificador. Pode-se notar que no colocamos a VLAN de voz apenas nas portas 23 e 24 do switch, pois serão utilizadas pelos telefones IPs.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O comando `en` de enable trata-se do comando de enable, para entrar no root do roteador. `conf t` ou `configure terminal` para entrar no modo de configuração do switch ou roteador. O comando `vlan xx` serve para criar uma VLAN e entrar na configuração da mesma, onde `xx` é qualquer número, de 1 a 4096, que servirá de interface para a VLAN. O comando `name xxxx` serve apenas para nomear a VLAN, onde `xxxx` é o nome a ser dado para a VLAN. O comando `int fa x/x` ou `interface fastEthernet x/x` serve para acessar uma porta específica do switch, podendo-se também utilizar com um `range` (intervalo) de portas, para aplicar a mesma configuração à várias portas simultaneamente, como é feito no comando logo abaixo. O comando `switchport mode` serve para alterar o tipo de porta podendo ser os modos `TRUNK` ou `ACCESS`, sendo o `TRUNK` a porta que vai se comunicar com o roteador, pois ela necessita passar todas as VLANs. O `ACCESS` então seria acesso aos endpoints e VoIPs. Os comandos `switchport access vlan xx` e `switchport voice vlan xx` servem para atribuir os modos das VLANs criadas anteriormente, utilizando seu número como identificador. Pode-se notar que no colocamos a VLAN de voz apenas nas portas 23 e 24 do switch, pois serão utilizadas pelos telefones IPs.
 
 -   Equipamento: Router (Interfaces)
 
@@ -165,9 +165,9 @@ Router(config)# end
     > [OK]
 ```
 
-Como há alguns comandos repetidos, tal como o de configuração da interface de FastEthernet (`int fa x/x`), iremos pular estes comandos para fins de clareza.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como há alguns comandos repetidos, tal como o de configuração da interface de FastEthernet (`int fa x/x`), iremos pular estes comandos para fins de clareza.
 
-O comando `no shutdown`, serve para que a porta seja habilitada no roteador, para que ela seja utilizável para comunicação, pois caso contrário ela não ficaria no estado "UP". O comando `ip address XXX.XXX.XXX.XXX XXX.XXX.XXX.XXX` serve para "settar" o IP juntamente com a máscara. O comando `int fastEthernet x/x.yy` serve para criar a sub-interface onde `yy` é o valor identificador da sub-interface, que usaremos para configurar as VLANs. O comando `encapsulation dot1Q yy` serve para atribuir a VLAN à sub-interface `yy`.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O comando `no shutdown`, serve para que a porta seja habilitada no roteador, para que ela seja utilizável para comunicação, pois caso contrário ela não ficaria no estado "UP". O comando `ip address XXX.XXX.XXX.XXX XXX.XXX.XXX.XXX` serve para "settar" o IP juntamente com a máscara. O comando `int fastEthernet x/x.yy` serve para criar a sub-interface onde `yy` é o valor identificador da sub-interface, que usaremos para configurar as VLANs. O comando `encapsulation dot1Q yy` serve para atribuir a VLAN à sub-interface `yy`.
 
 -   Equipamento: Router (Telefonia)
 
@@ -199,7 +199,7 @@ Router(config)# end
     > [OK]
 ```
 
-Como o DHCP dessa rede é externo ao roteador, devemos configurar onde os telefones irão solicitar os IPs, com o comando `ip helper-address XXX.XXX.XXX.XXX` na sub-interface referente a rede de voz. Usamos o comando `telephony-service` para entrar na configuração da parte de telefonia do roteador. O comando `max-dn XX` indica um número de linhas `XX` que irão existir nesse roteador. O comando `max-ephones XX` indica o número máximo `XX` de telefones físicos presentes na rede. O comando `auto assign XX to YY` significa que ele irá atribuir automaticamente as linhas `XX` à `YY` conforme os telefones vão se registrando na rede. O comando `ip source-address XXX.XXX.XXX.XXX port YYYY` indica de onde o telefone IP irá fazer o download de sua configuração, normalmente sendo o próprio roteador onde o serviço de telefonia está sendo configurado. O comando `ephone-dn X` indica que estou entrando na linha `X` e atribuindo um número a ela com o comando `number Y`. Repete-se para os telefones restantes.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como o DHCP dessa rede é externo ao roteador, devemos configurar onde os telefones irão solicitar os IPs, com o comando `ip helper-address XXX.XXX.XXX.XXX` na sub-interface referente a rede de voz. Usamos o comando `telephony-service` para entrar na configuração da parte de telefonia do roteador. O comando `max-dn XX` indica um número de linhas `XX` que irão existir nesse roteador. O comando `max-ephones XX` indica o número máximo `XX` de telefones físicos presentes na rede. O comando `auto assign XX to YY` significa que ele irá atribuir automaticamente as linhas `XX` à `YY` conforme os telefones vão se registrando na rede. O comando `ip source-address XXX.XXX.XXX.XXX port YYYY` indica de onde o telefone IP irá fazer o download de sua configuração, normalmente sendo o próprio roteador onde o serviço de telefonia está sendo configurado. O comando `ephone-dn X` indica que estou entrando na linha `X` e atribuindo um número a ela com o comando `number Y`. Repete-se para os telefones restantes.
 
 -   Equipamento: Router (Rotas)
 
@@ -219,7 +219,7 @@ Router#
     > [OK]
 ```
 
-O comando `router rip` serve para entrarmos na configuração de rotas utilizando o protocolo RIP, podendo alternar entre os diferentes protocolos, como BGP ou OSPF. Como estamos utilizando o protocolo RIP, precisamos apenas dizer quais redes estão presentes nele com o comando `network XXX.XXX.XXX.XXX`. Nota-se que as redes `192.168.11.0` e `192.168.12.0` são da rede LAN, e as redes `10.0.0.0` e `11.0.0.0` são para comunicação com as redes externas.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O comando `router rip` serve para entrarmos na configuração de rotas utilizando o protocolo RIP, podendo alternar entre os diferentes protocolos, como BGP ou OSPF. Como estamos utilizando o protocolo RIP, precisamos apenas dizer quais redes estão presentes nele com o comando `network XXX.XXX.XXX.XXX`. Nota-se que as redes `192.168.11.0` e `192.168.12.0` são da rede LAN, e as redes `10.0.0.0` e `11.0.0.0` são para comunicação com as redes externas.
 
 -   Equipamento: Router (Rotas VOIP)
 
@@ -248,7 +248,7 @@ Router(config)# exit
     > [OK]
 ```
 
-O comando `dial-peer voice X voip` configura um "dial peer" para lidar com, usando o número `X` como identificador. Esse "dial peer" determina como o roteador encaminha as chamadas com base em critérios específicos, como o destino da chamada. O `dial-peer` necessita de configurações/parâmetros extras para o seu funcionamento, onde um desses parâmetros é o `destination-pattern X` que define o padrão de discagem para o ramal com o `destination-pattern` que se encaixe no valor "curinga" `X` informado, podendo ser um valor mais específico, ou generalizado, dependendo do seu tamanho. O próximo parâmetro é o `session target`, que define para qual endereço ele deve enviar esta chamada, podendo ser um telefone, ou um IPv4 referente ao endereço do roteador da rede, que foi nosso caso, onde o endereço `11.0.0.2` trata-se do roteador da rede 03, e o `10.0.0.2` é da rede 02. Repete-se o processo para os roteadores restantes, mudando o `destination-pattern` e o `session target`.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O comando `dial-peer voice X voip` configura um "dial peer" para lidar com, usando o número `X` como identificador. Esse "dial peer" determina como o roteador encaminha as chamadas com base em critérios específicos, como o destino da chamada. O `dial-peer` necessita de configurações/parâmetros extras para o seu funcionamento, onde um desses parâmetros é o `destination-pattern X` que define o padrão de discagem para o ramal com o `destination-pattern` que se encaixe no valor "curinga" `X` informado, podendo ser um valor mais específico, ou generalizado, dependendo do seu tamanho. O próximo parâmetro é o `session target`, que define para qual endereço ele deve enviar esta chamada, podendo ser um telefone, ou um IPv4 referente ao endereço do roteador da rede, que foi nosso caso, onde o endereço `11.0.0.2` trata-se do roteador da rede 03, e o `10.0.0.2` é da rede 02. Repete-se o processo para os roteadores restantes, mudando o `destination-pattern` e o `session target`.
 
 ### Rede 2
 
@@ -494,7 +494,7 @@ Router(config)# exit
     > [OK]
 ```
 
-Com o comando `ip dhcp pool dados` estamos criando um `pool` de DHCP com o nome `dados`, onde informamos a rede a qual ele pertence com o comando `network 192.168.31.0 255.255.255.0`, a informação do servidor DNS com o comando `dns-server 192.168.11.3`, e a rota padrão, que trata-se da rota do próprio roteador com o comando `default-router 192.168.31.1`. O comando `default-router` também é conhecido como `gateway` da rede em outros roteadores. Os comandos então repetem-se para a VLAN de voz, acrescentando apenas o `option 150 ip 192.168.32.1` sendo a configuração utilizada apenas por telefones IP, sendo um servidor TFTP, onde os dispositivos fazem download de suas respectivas configurações.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Com o comando `ip dhcp pool dados` estamos criando um `pool` de DHCP com o nome `dados`, onde informamos a rede a qual ele pertence com o comando `network 192.168.31.0 255.255.255.0`, a informação do servidor DNS com o comando `dns-server 192.168.11.3`, e a rota padrão, que trata-se da rota do próprio roteador com o comando `default-router 192.168.31.1`. O comando `default-router` também é conhecido como `gateway` da rede em outros roteadores. Os comandos então repetem-se para a VLAN de voz, acrescentando apenas o `option 150 ip 192.168.32.1` sendo a configuração utilizada apenas por telefones IP, sendo um servidor TFTP, onde os dispositivos fazem download de suas respectivas configurações.
 
 -   Equipamento: Router (Rotas)
 
