@@ -541,3 +541,7 @@ Router(config)# exit
     > Building configuration...
     > [OK]
 ```
+
+## Conclusão
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A rede aqui desenvolvida, foi configurada para garantir a interconexão e o funcionamento harmonioso entre as redes. A aplicação dos conceitos de protocolos de comunicação como TCP/IP, UDP, HTTP e o uso de tecnologias como VLANs para isolamento e segmentação das redes foi crucial para garantir a organização e funcionamento adequado dos equipamentos. A distribuição de IPs, servidores DHCP, DNS e HTTP foi planejada de forma a possibilitar a comunicação eficiente entre os dispositivos em diferentes redes. A configuração dos equipamentos, como switches e roteadores, além da atribuição de dial peers para lidar com chamadas VoIP foram grandes desafios. Este projeto demonstra uma infraestrutura robusta e com estrutura para atender às exigências de comunicação entre as redes propostas.
